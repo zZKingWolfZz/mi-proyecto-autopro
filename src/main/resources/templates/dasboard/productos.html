@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style_general.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Productos</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <a th:href="@{/}" style="text-decoration: none;">
+                <h2 class="logo">AutoPro</h2>
+            </a>
+            <div class="linea-logo"></div>
+
+            <ul>
+                <li>
+                    <a th:href="@{/dashboard}">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/ventas}">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a th:href="@{/productos}">
+                        <i class="fas fa-box"></i>
+                        <span>Productos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/clientes}">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/citas}">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Citas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/reportes}">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/configuracion}">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+
+            </ul>
+            <footer class="footer">
+                <span>© 2026 SistemaPro</span>
+                <span>Desarrollado por Yeffer</span>
+            </footer>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <i class="fas fa-bars menu-btn"></i>
+                    <div class="titulo">Productos</div>
+                </div>
+
+                <div class="top-icons">
+                    <i class="fas fa-bell"></i>
+                    <i class="fas fa-envelope"></i>
+
+                    <div class="user-menu">
+                        <img src="https://i.pravatar.cc/40" alt="Admin">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+
+                        <div class="user-dropdown">
+                            <a href="#">Perfil</a>
+                            <a href="#">Configuración</a>
+                            <a href="#">Salir</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="Ventas-container">
+
+                <div class="settings-card" style="grid-column: 1 / -1;">
+                    <h3>Registrar Nuevo Producto</h3>
+                    <form th:action="@{/productos/guardar}" th:object="${producto}" method="POST"
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+
+                        <input type="hidden" th:field="*{idProducto}">
+
+                        <div class="form-group">
+                            <label>Nombre de Producto</label>
+                            <input type="text" th:field="*{nombre}" placeholder="Ej. Aceite de motor" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <input type="text" th:field="*{descripcion}" placeholder="Detalles..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" th:field="*{precio}" step="0.01" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="number" th:field="*{stock}" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Imagen (URL)</label>
+                            <input type="text" th:field="*{imagen}" placeholder="URL de la imagen">
+                        </div>
+                        <div class="form-group"
+                            style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
+                            <input type="checkbox" th:field="*{oferta}" id="oferta" style="width: auto; margin:0">
+                            <label for="oferta" style="margin-bottom: 0;">¿En Oferta?</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Sucursal</label>
+                            <select th:field="*{idSucursal}" required>
+                                <option value="" disabled selected>Seleccione una Sucursal</option>
+                                <option value="1">AutoPro - Sede Central Pilcomayo</option>
+                                <option value="2">AutoPro - Express Huancayo</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1; align-items: flex-start;">
+                            <button type="submit" class="btn-primary"
+                                style="width: auto; padding: 10px 24px; margin-top: 0;">Guardar Producto</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="sales-table-container">
+
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 class="table-title">Lista de Productos</h3>
+                        <form class="search-box" th:action="@{/productos}" method="get">
+                            <i class="fas fa-search"></i>
+                            <input type="text" name="palabraClave" th:value="${palabraClave}"
+                                placeholder="Buscar por nombre...">
+                            <button type="submit" style="display:none;"></button>
+                        </form>
+                    </div>
+
+                    <div class="sales-box">
+                        <table class="sales-table">
+                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>ID Producto</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Oferta</th>
+                                        <th>Precio</th>
+                                        <th>Stock</th>
+                                        <th>Imagen</th>
+                                        <th>ID Sucursal</th>
+                                        <th>Acciones</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tr th:each="p : ${productos}">
+                                    <td th:text="${p.idProducto}" class="fw-bold text-muted"></td>
+                                    <td th:text="${p.nombre}"></td>
+                                    <td th:text="${p.descripcion}" class="text-muted small"></td>
+                                    <td th:text="${p.oferta ? 'SÍ' : 'NO'}"></td>
+                                    <td th:text="${p.precio}" class="text-muted small"></td>
+                                    <td th:text="${p.stock}" class="text-muted small"></td>
+                                    <td>
+                                        <img th:src="${p.imagen}" alt="Imagen Producto"
+                                            style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                    </td>
+                                    <td th:text="${p.idSucursal}" class="text-muted small"></td>
+
+                                    <td class="text-center">
+                                        <a th:href="@{/productos/editar/{id}(id=${p.idProducto})}"
+                                            class="btn-icon btn-sm mx-1 text-white border-0"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a th:href="@{/productos/eliminar/{id}(id=${p.idProducto})}"
+                                            class="btn-icon delete btn-sm mx-1 border-0"
+                                            onclick="return confirm('¿Seguro que deseas eliminar este producto?')"><i
+                                                class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+<script th:src="@{/js/funcionsidebar.js}"></script>
+<script th:src="@{/js/modo.js}"></script>
+
+</html>
+
+<style>
+    /* ================= CONTENEDOR VENTAS ================= */
+    .Ventas-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 30px;
+        box-sizing: border-box;
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    /* ================= TARJETAS ================= */
+    .Ventas-container .settings-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, .08);
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .Ventas-container .settings-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, .12);
+    }
+
+    /* Título de card */
+    .Ventas-container .settings-card h3 {
+        margin-bottom: 18px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    /* ================= FORMULARIOS ================= */
+    .Ventas-container .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+    }
+
+    .Ventas-container label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 6px;
+    }
+
+    /* Inputs y select */
+    .Ventas-container input,
+    .Ventas-container select {
+        padding: 11px 14px;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+        transition: border .2s ease, box-shadow .2s ease;
+    }
+
+    .Ventas-container input:focus,
+    .Ventas-container select:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+    }
+
+    /* ================= BOTONES ================= */
+    .Ventas-container .btn-primary {
+        margin-top: 12px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .Ventas-container .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, .4);
+    }
+
+    /* ================= DARK MODE ================= */
+    body.dark .Ventas-container .settings-card {
+        background: #020617;
+        color: #e5e7eb;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, .6);
+    }
+
+    body.dark .Ventas-container label {
+        color: #cbd5f5;
+    }
+
+    body.dark .Ventas-container input,
+    body.dark .Ventas-container select {
+        background: #020617;
+        border: 1px solid #1e293b;
+        color: #e5e7eb;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1024px) {
+        .Ventas-container {
+            grid-template-columns: 1fr;
+            /* vertical en tablets/móvil */
+        }
+    }
+
+    /* ================= TABLA DE VENTAS ================= */
+    .sales-table-container {
+        grid-column: 1 / -1;
+        /* ocupa todo el ancho */
+        margin-top: 10px;
+    }
+
+    .table-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #111827;
+    }
+
+    /* Caja tabla */
+    .sales-box {
+        width: 100%;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, .08);
+        overflow-x: auto;
+    }
+
+    /* Tabla */
+    .sales-table {
+        width: 100%;
+        min-width: 900px;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .sales-table th,
+    .sales-table td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .sales-table th {
+        background: #f9fafb;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    /* Hover */
+    .sales-table tbody tr:hover {
+        background: #f1f5f9;
+    }
+
+    /* Botones */
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        margin-right: 8px;
+        color: #2563eb;
+    }
+
+    .btn-icon.delete {
+        color: #dc2626;
+    }
+
+    .btn-icon:hover {
+        opacity: .8;
+    }
+
+    /* Total */
+    .sales-total {
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 20px;
+        font-size: 18px;
+    }
+
+    .sales-total strong {
+        color: #1e40af;
+    }
+
+    /* ================= SEARCH BOX ================= */
+    .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box i {
+        position: absolute;
+        left: 12px;
+        color: #6b7280;
+    }
+
+    .search-box input {
+        padding: 10px 12px 10px 35px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+        width: 250px;
+        transition: border 0.2s;
+    }
+
+    .search-box input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    body.dark .search-box input {
+        background: #020617;
+        border-color: #1e293b;
+        color: #e5e7eb;
+    }
+
+    body.dark .search-box i {
+        color: #9ca3af;
+    }
+
+    /* ================= DARK MODE ================= */
+    body.dark .sales-box {
+        background: #020617;
+    }
+
+    body.dark .sales-table th,
+    body.dark .sales-table td {
+        border-color: #1e293b;
+    }
+
+    body.dark .sales-table th {
+        background: #020617;
+    }
+
+    body.dark .sales-table tbody tr:hover {
+        background: #1e293b;
+    }
+
+    body.dark .table-title {
+        color: #e5e7eb;
+    }
+
+    body.dark .sales-total {
+        color: #e5e7eb;
+    }
+</style>

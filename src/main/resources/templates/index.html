@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Pro - Taller Mecánico</title>
+    <link rel="stylesheet" th:href="@{css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="logo">
+            <a href="#">
+                <img th:src="@{/img/logo.png}" alt="Logo Auto Pro">
+            </a>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a th:href="@{/catalogo}">Catálogo</a></li>
+                <li><a href="#reservar">Reservar Cita</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <a th:href="@{/login}" class="btn-acceso">Iniciar Sesión</a>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="banner" id="inicio">
+        <div class="banner-contenido">
+            <h1>Tu vehículo en las mejores manos</h1>
+            <p>
+                Especialistas en mantenimiento, diagnóstico y reparación
+                de vehículos con atención rápida y profesional.
+            </p>
+        </div>
+    </section>
+
+    <section class="servicios" id="servicios">
+        <h1>Servicios</h1>
+        <p class="servicios-intro">
+            Como taller mecánico estamos especializados en reparación, mantenimiento correctivo y
+            preventivo vehicular y planchado-pintura. Buscamos cubrir todo servicio necesario para lograr el óptimo
+            funcionamiento de cualquier vehículo, con atención personalizada para particulares y empresas.
+        </p>
+        <div class="servicios-items">
+            <div class="servicio" th:each="s : ${servicios}">
+                <i th:class="${s.icono}"
+                    style="font-size: 40px; color: #ff4500; margin-bottom: 15px; display: block;"></i>
+                <h3 th:text="${s.nombre}" style="color: #000000"></h3>
+                <p th:text="${s.descripcion}"></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reservar" id="reservar">
+        <h1>Reservar Cita</h1>
+        <div class="formulario">
+            <form class="reserva-formulario">
+                <input type="text" placeholder="Nombre Completo" required>
+                <input type="email" placeholder="Correo Electrónico" required>
+                <input type="tel" placeholder="Número de Teléfono" required>
+                <select required>
+                    <option value="">Selecciona un Servicio</option>
+                    <option value="cambio-aceite">Cambio de Aceite</option>
+                    <option value="mantenimiento-preventivo">Mantenimiento Preventivo</option>
+                    <option value="mantenimiento-flotas">Mantenimiento de Flotas</option>
+                    <option value="planchado-pintura">Planchado y Pintura</option>
+                    <option value="reparacion-averias">Reparación de Averías</option>
+                    <option value="diagnostico">Escaneo y Diagnóstico</option>
+                    <option value="instalacion-accesorios">Instalación de Accesorios</option>
+                </select>
+                <input type="date" required>
+                <button type="submit">Reservar Cita</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="contacto" id="ubicacion">
+        <h1>Ubicación</h1>
+
+        <div class="contacto-contenedor">
+            <div class="contacto-info">
+
+                <p>📍 Av. Principal 123, Huancayo, Perú</p>
+                <p>🕒 Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+            </div>
+
+            <div class="mapa">
+                <iframe src="https://www.google.com/maps?q=Huancayo,Peru&output=embed" allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-contenedor">
+
+            <div class="footer-logo">
+                <h2>Acerca de Nosotros</h2>
+                <p>
+                    Taller mecánico especializado en mantenimiento, diagnóstico
+                    y reparación de vehículos con atención rápida y profesional.
+                </p>
+            </div>
+
+            <div class="footer-seccion">
+                <h3>Servicios</h3>
+                <ul>
+                    <li><a href="#">Cambio de Aceite</a></li>
+                    <li><a href="#">Mantenimiento Preventivo</a></li>
+                    <li><a href="#">Planchado y Pintura</a></li>
+                    <li><a href="#">Escaneo y Diagnóstico</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion redes-sociales">
+                <h3>Redes Sociales</h3>
+                <ul>
+                    <li>
+                        <a href="https://facebook.com" target="_blank">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/51987654321" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" target="_blank">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://youtube.com" target="_blank">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h3>Contacto</h3>
+                <p>📍 Huancayo, Perú</p>
+                <p>📞 +51 987 654 321</p>
+                <p>✉️ contacto@autopro.com</p>
+            </div>
+        </div>
+
+        <div class="footer-copy">
+            <p>© 2026 AUTO PRO - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.getElementById("header");
+
+            if (window.scrollY > 50) {
+                header.classList.add("transparente");
+            } else {
+                header.classList.remove("transparente");
+            }
+        });
+    </script>

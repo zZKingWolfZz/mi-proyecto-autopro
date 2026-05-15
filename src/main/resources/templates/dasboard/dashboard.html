@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style_general.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <a th:href="@{/}" style="text-decoration: none;">
+                <h2 class="logo">AutoPro</h2>
+            </a>
+            <div class="linea-logo"></div>
+
+            <ul>
+                <li class="active">
+                    <a th:href="@{/dashboard}">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/ventas}">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/productos}">
+                        <i class="fas fa-box"></i>
+                        <span>Productos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/clientes}">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/citas}">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Citas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/reportes}">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/configuracion}">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+
+            </ul>
+            <footer class="footer">
+                <span>© 2026 SistemaPro</span>
+                <span>Desarrollado por Yeffer</span>
+            </footer>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <i class="fas fa-bars menu-btn"></i>
+                    <div class="titulo">Dashboard</div>
+                </div>
+
+                <div class="top-icons">
+                    <i class="fas fa-bell"></i>
+                    <i class="fas fa-envelope"></i>
+
+                    <div class="user-menu">
+                        <img src="https://i.pravatar.cc/40" alt="Admin">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+
+                        <div class="user-dropdown">
+                            <a href="#">Perfil</a>
+                            <a href="#">Configuración</a>
+                            <a href="#">Salir</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="cards">
+                <div class="card blue">
+                    <h4>Ventas Hoy</h4>
+                    <h2>$1,250</h2>
+
+                </div>
+                <div class="card green">
+                    <h4>Nuevos Usuarios</h4>
+                    <h2>120</h2>
+
+                </div>
+                <div class="card orange">
+                    <h4>Tickets Abiertos</h4>
+                    <h2>35</h2>
+
+                </div>
+                <div class="card dark">
+                    <h4>Ganancias Mensuales</h4>
+                    <h2>$9,800</h2>
+
+                </div>
+            </section>
+
+
+
+        </main>
+    </div>
+
+</body>
+<script th:src="@{/js/funcionsidebar.js}"></script>
+<script th:src="@{/js/modo.js}"></script>
+
+</html>
